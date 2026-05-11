@@ -1,0 +1,159 @@
+import { Link, useLocation } from 'react-router-dom';
+import {
+  LayoutDashboard,
+  Users,
+  FileText,
+  Settings,
+  Building2,
+  User as UserIcon,
+  CreditCard,
+  FileCheck,
+  Shield,
+  BarChart3,
+  Activity,
+  Megaphone,
+  Calendar,
+  CalendarDays,
+  ClipboardCheck,
+  Mail,
+  History
+} from 'lucide-react';
+import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
+import { useAuthStore } from '../store/authStore';
+
+interface NavItem {
+  icon: React.ElementType;
+  label: string;
+  path: string;
+  roles: string[];
+  section?: string;
+}
+
+const navItems: NavItem[] = [
+  // --- Admin ---
+  { icon: LayoutDashboard, label: 'Panel General', path: '/', roles: ['admin'], section: 'General' },
+  { icon: Building2, label: 'Clubes', path: '/clubs', roles: ['admin'], section: 'Gestión' },
+  { icon: Users, label: 'Jugadores', path: '/players', roles: ['admin'] },
+  { icon: BarChart3, label: 'Estadísticas', path: '/stats', roles: ['admin'] },
+  { icon: Activity, label: 'Actividad', path: '/activity', roles: ['admin'], section: 'Plataforma' },
+  { icon: Megaphone, label: 'Comunicados', path: '/announcements', roles: ['admin'] },
+  { icon: Calendar, label: 'Temporadas', path: '/seasons', roles: ['admin'] },
+  { icon: Settings, label: 'Ajustes', path: '/settings', roles: ['admin'], section: 'Sistema' },
+
+  // --- Club ---
+  { icon: LayoutDashboard, label: 'Panel General', path: '/', roles: ['club'], section: 'General' },
+  { icon: Building2, label: 'Mi Club', path: '/my-club', roles: ['club'], section: 'Gestión' },
+  { icon: Users, label: 'Directorio', path: '/directory', roles: ['club'] },
+  { icon: FileCheck, label: 'Documentos', path: '/documents', roles: ['club'] },
+  { icon: Shield, label: 'Equipos', path: '/teams', roles: ['club'] },
+  { icon: CreditCard, label: 'Tesorería', path: '/treasury', roles: ['club'] },
+  { icon: CalendarDays, label: 'Calendario', path: '/calendar', roles: ['club'], section: 'Comunicación' },
+  { icon: Megaphone, label: 'Comunicados', path: '/club-announcements', roles: ['club'] },
+  { icon: ClipboardCheck, label: 'Asistencia', path: '/attendance', roles: ['club'] },
+  { icon: Settings, label: 'Ajustes', path: '/settings', roles: ['club'], section: 'Sistema' },
+
+  // --- Player ---
+  { icon: LayoutDashboard, label: 'Mi Panel', path: '/', roles: ['player'], section: 'General' },
+  { icon: FileText, label: 'Mis Documentos', path: '/my-documents', roles: ['player'], section: 'Mi Ficha' },
+  { icon: CreditCard, label: 'Mis Pagos', path: '/my-payments', roles: ['player'] },
+  { icon: Users, label: 'Mi Equipo', path: '/my-team', roles: ['player'] },
+  { icon: UserIcon, label: 'Mis Datos', path: '/my-profile', roles: ['player'] },
+  { icon: CalendarDays, label: 'Calendario', path: '/my-calendar', roles: ['player'], section: 'Club' },
+  { icon: Mail, label: 'Buzón', path: '/my-messages', roles: ['player'] },
+  { icon: History, label: 'Historial', path: '/my-history', roles: ['player'] },
+  { icon: Settings, label: 'Ajustes', path: '/settings', roles: ['player'], section: 'Sistema' },
+];
+
+export function Sidebar() {
+  const location = useLocation();
+  const profile = useAuthStore((state) => state.profile);
+  const userRole = profile?.role || 'player';
+
+  const filteredNavItems = navItems.filter(item => item.roles.includes(userRole));
+
+  // Group items by section
+  const groupedItems: { section: string | null; items: NavItem[] }[] = [];
+  let currentSection: string | null = null;
+
+  filteredNavItems.forEach(item => {
+    if (item.section && item.section !== currentSection) {
+      currentSection = item.section;
+      groupedItems.push({ section: currentSection, items: [item] });
+    } else {
+      if (groupedItems.length === 0) {
+        groupedItems.push({ section: null, items: [item] });
+      } else {
+        groupedItems[groupedItems.length - 1].items.push(item);
+      }
+    }
+  });
+
+  return (
+    <aside className="w-64 bg-white border-r border-slate-200 h-screen hidden md:flex flex-col sticky top-0">
+      <div className="h-24 flex items-center px-6 border-b border-slate-200 bg-slate-900 text-white relative overflow-hidden shrink-0">
+        <div className="absolute inset-0 opacity-20">
+          <img src="https://images.unsplash.com/photo-1542652694-40abf526446e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Sidebar Banner" className="w-full h-full object-cover mix-blend-overlay" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent"></div>
+        <div className="flex items-center gap-3 relative z-10">
+          <div className="w-11 h-11 rounded-xl bg-brand-600 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-brand-500/30 border border-brand-500">
+            A
+          </div>
+          <div>
+            <span className="text-xl font-black tracking-tight block leading-none">Avantia</span>
+            <span className="text-xs text-brand-400 font-bold uppercase tracking-widest mt-1 block">
+              {userRole === 'admin' ? 'Administrador' : userRole === 'club' ? 'Panel de Club' : 'Portal Jugador'}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto py-4 px-4">
+        {groupedItems.map((group, gi) => (
+          <div key={gi} className={gi > 0 ? 'mt-4' : ''}>
+            {group.section && (
+              <div className="mb-2 px-3 pt-2 text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">
+                {group.section}
+              </div>
+            )}
+            <nav className="space-y-0.5">
+              {group.items.map((item) => {
+                const isActive = location.pathname === item.path;
+                const Icon = item.icon;
+
+                return (
+                  <Link
+                    key={item.path + item.label}
+                    to={item.path}
+                    className={twMerge(
+                      clsx(
+                        'flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group text-[13px] font-semibold',
+                        isActive
+                          ? 'bg-brand-50 text-brand-600 shadow-sm border border-brand-100'
+                          : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                      )
+                    )}
+                  >
+                    <Icon className={clsx("w-[18px] h-[18px]", isActive ? "text-brand-600" : "text-slate-400 group-hover:text-slate-600")} />
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+        ))}
+      </div>
+
+      <div className="p-4 border-t border-slate-200">
+        <div className="bg-slate-50 rounded-xl p-4">
+          <p className="text-xs text-slate-500 font-medium mb-1">Soporte Técnico</p>
+          <p className="text-xs text-slate-400 mb-3">¿Necesitas ayuda con las fichas?</p>
+          <button className="w-full text-xs font-medium bg-white border border-slate-200 text-slate-700 py-2 rounded-lg shadow-sm hover:bg-slate-50 transition-colors">
+            Contactar
+          </button>
+        </div>
+      </div>
+    </aside>
+  );
+}
