@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AvantiaEsport</string>
+    <string name="title_activity_main">AvantiaEsport</string>
+    <string name="package_name">com.avantiaesport.app</string>
+    <string name="custom_url_scheme">com.avantiaesport.app</string>
+</resources>

@@ -5,6 +5,10 @@ import { Login } from './pages/Login';
 import { Settings } from './pages/Settings';
 import { AuthProvider } from './components/AuthProvider';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import LandingPage from './pages/landing/LandingPage';
+import PrivacyPolicy from './pages/landing/PrivacyPolicy';
+import Terms from './pages/landing/Terms';
+import Cookies from './pages/landing/Cookies';
 
 // Admin Pages
 import { AdminClubsPage } from './pages/admin/AdminClubsPage';
@@ -32,16 +36,26 @@ import { PlayerProfilePage } from './pages/player/PlayerProfilePage';
 import { PlayerCalendarPage } from './pages/player/PlayerCalendarPage';
 import { PlayerMessagesPage } from './pages/player/PlayerMessagesPage';
 import { PlayerHistoryPage } from './pages/player/PlayerHistoryPage';
+import { VersionGuard } from './components/VersionGuard';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
+    <VersionGuard>
+      <AuthProvider>
+        <Router>
+          <Routes>
+          {/* Public Landing Pages */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/privacidad" element={<PrivacyPolicy />} />
+          <Route path="/terminos" element={<Terms />} />
+          <Route path="/cookies" element={<Cookies />} />
+          
+          {/* Login */}
           <Route path="/login" element={<Login />} />
 
+          {/* Protected Dashboard Routes */}
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<DashboardLayout />}>
+            <Route path="/dashboard" element={<DashboardLayout />}>
               {/* Overview / Home — role-aware */}
               <Route index element={<Dashboard />} />
 
@@ -79,6 +93,7 @@ function App() {
         </Routes>
       </Router>
     </AuthProvider>
+    </VersionGuard>
   );
 }
 

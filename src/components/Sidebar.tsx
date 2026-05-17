@@ -32,37 +32,37 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   // --- Admin ---
-  { icon: LayoutDashboard, label: 'Panel General', path: '/', roles: ['admin'], section: 'General' },
-  { icon: Building2, label: 'Clubes', path: '/clubs', roles: ['admin'], section: 'Gestión' },
-  { icon: Users, label: 'Jugadores', path: '/players', roles: ['admin'] },
-  { icon: BarChart3, label: 'Estadísticas', path: '/stats', roles: ['admin'] },
-  { icon: Activity, label: 'Actividad', path: '/activity', roles: ['admin'], section: 'Plataforma' },
-  { icon: Megaphone, label: 'Comunicados', path: '/announcements', roles: ['admin'] },
-  { icon: Calendar, label: 'Temporadas', path: '/seasons', roles: ['admin'] },
-  { icon: Settings, label: 'Ajustes', path: '/settings', roles: ['admin'], section: 'Sistema' },
+  { icon: LayoutDashboard, label: 'Panel General', path: '/dashboard', roles: ['admin'], section: 'General' },
+  { icon: Building2, label: 'Clubes', path: '/dashboard/clubs', roles: ['admin'], section: 'Gestión' },
+  { icon: Users, label: 'Jugadores', path: '/dashboard/players', roles: ['admin'] },
+  { icon: BarChart3, label: 'Estadísticas', path: '/dashboard/stats', roles: ['admin'] },
+  { icon: Activity, label: 'Actividad', path: '/dashboard/activity', roles: ['admin'], section: 'Plataforma' },
+  { icon: Megaphone, label: 'Comunicados', path: '/dashboard/announcements', roles: ['admin'] },
+  { icon: Calendar, label: 'Temporadas', path: '/dashboard/seasons', roles: ['admin'] },
+  { icon: Settings, label: 'Ajustes', path: '/dashboard/settings', roles: ['admin'], section: 'Sistema' },
 
   // --- Club ---
-  { icon: LayoutDashboard, label: 'Panel General', path: '/', roles: ['club'], section: 'General' },
-  { icon: Building2, label: 'Mi Club', path: '/my-club', roles: ['club'], section: 'Gestión' },
-  { icon: Users, label: 'Directorio', path: '/directory', roles: ['club'] },
-  { icon: FileCheck, label: 'Documentos', path: '/documents', roles: ['club'] },
-  { icon: Shield, label: 'Equipos', path: '/teams', roles: ['club'] },
-  { icon: CreditCard, label: 'Tesorería', path: '/treasury', roles: ['club'] },
-  { icon: CalendarDays, label: 'Calendario', path: '/calendar', roles: ['club'], section: 'Comunicación' },
-  { icon: Megaphone, label: 'Comunicados', path: '/club-announcements', roles: ['club'] },
-  { icon: ClipboardCheck, label: 'Asistencia', path: '/attendance', roles: ['club'] },
-  { icon: Settings, label: 'Ajustes', path: '/settings', roles: ['club'], section: 'Sistema' },
+  { icon: LayoutDashboard, label: 'Panel General', path: '/dashboard', roles: ['club'], section: 'General' },
+  { icon: Building2, label: 'Mi Club', path: '/dashboard/my-club', roles: ['club'], section: 'Gestión' },
+  { icon: Users, label: 'Directorio', path: '/dashboard/directory', roles: ['club'] },
+  { icon: FileCheck, label: 'Documentos', path: '/dashboard/documents', roles: ['club'] },
+  { icon: Shield, label: 'Equipos', path: '/dashboard/teams', roles: ['club'] },
+  { icon: CreditCard, label: 'Tesorería', path: '/dashboard/treasury', roles: ['club'] },
+  { icon: CalendarDays, label: 'Calendario', path: '/dashboard/calendar', roles: ['club'], section: 'Comunicación' },
+  { icon: Megaphone, label: 'Comunicados', path: '/dashboard/club-announcements', roles: ['club'] },
+  { icon: ClipboardCheck, label: 'Asistencia', path: '/dashboard/attendance', roles: ['club'] },
+  { icon: Settings, label: 'Ajustes', path: '/dashboard/settings', roles: ['club'], section: 'Sistema' },
 
   // --- Player ---
-  { icon: LayoutDashboard, label: 'Mi Panel', path: '/', roles: ['player'], section: 'General' },
-  { icon: FileText, label: 'Mis Documentos', path: '/my-documents', roles: ['player'], section: 'Mi Ficha' },
-  { icon: CreditCard, label: 'Mis Pagos', path: '/my-payments', roles: ['player'] },
-  { icon: Users, label: 'Mi Equipo', path: '/my-team', roles: ['player'] },
-  { icon: UserIcon, label: 'Mis Datos', path: '/my-profile', roles: ['player'] },
-  { icon: CalendarDays, label: 'Calendario', path: '/my-calendar', roles: ['player'], section: 'Club' },
-  { icon: Mail, label: 'Buzón', path: '/my-messages', roles: ['player'] },
-  { icon: History, label: 'Historial', path: '/my-history', roles: ['player'] },
-  { icon: Settings, label: 'Ajustes', path: '/settings', roles: ['player'], section: 'Sistema' },
+  { icon: LayoutDashboard, label: 'Mi Panel', path: '/dashboard', roles: ['player'], section: 'General' },
+  { icon: FileText, label: 'Mis Documentos', path: '/dashboard/my-documents', roles: ['player'], section: 'Mi Ficha' },
+  { icon: CreditCard, label: 'Mis Pagos', path: '/dashboard/my-payments', roles: ['player'] },
+  { icon: Users, label: 'Mi Equipo', path: '/dashboard/my-team', roles: ['player'] },
+  { icon: UserIcon, label: 'Mis Datos', path: '/dashboard/my-profile', roles: ['player'] },
+  { icon: CalendarDays, label: 'Calendario', path: '/dashboard/my-calendar', roles: ['player'], section: 'Club' },
+  { icon: Mail, label: 'Buzón', path: '/dashboard/my-messages', roles: ['player'] },
+  { icon: History, label: 'Historial', path: '/dashboard/my-history', roles: ['player'] },
+  { icon: Settings, label: 'Ajustes', path: '/dashboard/settings', roles: ['player'], section: 'Sistema' },
 ];
 
 export function Sidebar() {
@@ -98,10 +98,10 @@ export function Sidebar() {
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent"></div>
         <div className="flex items-center gap-3 relative z-10">
           <div className="w-11 h-11 rounded-xl bg-brand-600 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-brand-500/30 border border-brand-500">
-            A
+            S
           </div>
           <div>
-            <span className="text-xl font-black tracking-tight block leading-none">Avantia</span>
+            <span className="text-xl font-black tracking-tight block leading-none">Sooner</span>
             <span className="text-xs text-brand-400 font-bold uppercase tracking-widest mt-1 block">
               {userRole === 'admin' ? 'Administrador' : userRole === 'club' ? 'Panel de Club' : 'Portal Jugador'}
             </span>
